@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite lina</title>
+    <meta property="og:title" content="cha de fralda da lina" />
+    <meta property="og:image" content="https://athilasb.github.io/chafraldalina/img/capacha.PNG" />
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,400&family=Signika+Negative:wght@600&display=swap"
+    rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .convite {
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Signika Negative', sans-serif;
+        color: #ffffff;
+        text-align: center;
+        max-width: 600px;
+
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        border-radius: 30px;
+        padding: 30px
+    }
+
+    .info_data_contagem {
+        background: #ffffff46;
+        border-radius: 15px;
+        padding: 15px;
+    }
+
+    .flores>img {
+        width: 100%;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        margin-bottom: -90px;
+    }
+
+    .setas>img {
+        max-width: 300px;
+        margin-top: 20px;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+    }
+
+    .descricao {
+        font-size: 20px;
+        font-weight: 300;
+    }
+
+    .info_data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 30px;
+    }
+
+    body {
+        height: 100vh;
+        font-size: 20px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #db7fd4;
+    }
+    .circles {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background: #9d4dc2;
+        border-radius: 50%;
+        position: absolute;
+        opacity: 0.5;
+        z-index: -1;
+    }
+
+    .info_data_dia {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+</style>
+
+<body>
+    <div class="convite">
+        <h2>Contagem Regreciva de formatura</h2>
+        <h1>Andressa</h1>
+        <div class="descricao">Contagem regreciva para formatura da Andressa</div>
+        <div class="info">
+            <div class="info_data">
+
+                <div class="info_data_contagem">
+                    <div id="clockdiv">
+                        Contagem Regreciva <br>
+                        <span class="days"></span> Dias <br><span class="hours"> </span> hrs <br> min: <span
+                            class="minutes"></span>:<span class="seconds"></span>s
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="jquery.buoyant.min.js"></script>
+        <script>
+            function getTimeRemaining(endtime) {
+                var t = Date.parse(endtime) - Date.parse(new Date());
+                var seconds = Math.floor((t / 1000) % 60);
+                var minutes = Math.floor((t / 1000 / 60) % 60);
+                var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+                var days = Math.floor(t / (1000 * 60 * 60 * 24));
+                return {
+                    'total': t,
+                    'days': days,
+                    'hours': hours,
+                    'minutes': minutes,
+                    'seconds': seconds
+                };
+            }
+
+            function initializeClock(id, endtime) {
+                var clock = document.getElementById(id);
+                var daysSpan = clock.querySelector('.days');
+                var hoursSpan = clock.querySelector('.hours');
+                var minutesSpan = clock.querySelector('.minutes');
+                var secondsSpan = clock.querySelector('.seconds');
+
+                function updateClock() {
+                    var t = getTimeRemaining(endtime);
+                    if (t.seconds < "0") {
+
+                        document.querySelector("#clockdiv").innerText = "Chegou a hora!!!"
+
+                    } else {
+                        daysSpan.innerHTML = t.days;
+                        hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                        minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                        secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+                    }
+                }
+
+                updateClock();
+                var timeinterval = setInterval(updateClock, 1000);
+            }
+
+            var deadline = 'december 31 2023 19:30:00 GMT-3';
+            initializeClock('clockdiv', deadline);
+
+            jQuery("body").buoyant({
+                numberOfItems: 15,
+                minRadius: 5,
+                maxRadius: 25,
+                elementClass: 'circles',
+                colliding: true
+            });
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+                function changeColors() {
+                $('body').css('background', getRandomColor());
+    
+                $('.circles').each(function() {
+                    $(this).css('background', getRandomColor());
+                });
+            }
+    
+            setInterval(changeColors, 2000); // Altera as cores a cada 1 segundo
+        </script>
+</body>
+
+</html>
